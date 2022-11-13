@@ -5,7 +5,7 @@ import { idToName, sleep, timeConver } from "../lib/common";
 
 export async function createUnion(msg: IMessageEx) {
     if (!msg.member) return;
-    if (!(await isAdmin(msg.author.id) || msg.member.roles.includes("12597148"))) return;
+    if (! msg.member.roles.includes("12597148"))) return;
 
     const unionName = (msg.content.match(/创建公会(.+)/) || [])[1].trim();
     if (!unionName) {
@@ -24,7 +24,7 @@ export async function createUnion(msg: IMessageEx) {
     return redis.hSet(`union:${unionName}`, [
         [`master`, msg.author.id],
         [`integral`, 0],
-        ["memberLimit", 10],
+        ["memberLimit", 15],
         [`member:${msg.author.id}`, "master"],
     ]).then(async () => {
         return msg.sendMsgEx({
